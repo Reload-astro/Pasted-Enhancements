@@ -152,6 +152,17 @@ local ModuleManager = {} do
         return modules
     end
 
+	function ModuleManager:CreateGroupBox(tab)
+		assert(self.Library, 'Must set ModuleManager.Library first!')
+		return tab:AddLeftGroupbox('Scripts')
+	end
+
+	function ModuleManager:ApplyToTab(tab)
+		assert(self.Library, 'Must set ModuleManager.Library first!')
+		local groupbox = self:CreateGroupBox(tab)
+		self:CreateModuleManager(groupbox)
+	end
+
 	function ModuleManager:SetLibrary(lib)
 		self.Library = lib
 	end
