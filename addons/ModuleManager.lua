@@ -176,7 +176,7 @@ local ModuleManager = {} do
     end
 
     function ModuleManager:SetFolder(folder)
-        self.Folder = folder
+        self.Folder = folder .. '/lua/'
         self:BuildFolderTree()
     end
 
