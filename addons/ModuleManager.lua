@@ -31,27 +31,27 @@ local ModuleManager = {} do
         groupbox:AddButton('load', function()
             local selected = Options.ModuleManager_CustomThemeList.Value
             if not selected then
-                self.Library:Notify('[API] No script selected to load', 3)
+                self.API:Notify('[API] No script selected to load', 3)
                 return
             end
 
             if self:LoadModule(selected, self.API) then
-                self.Library:Notify('[API] Loaded module: ' .. selected)
+                self.API:Notify('[API] Loaded module: ' .. selected)
             else
-                self.Library:Notify('[API] Failed to load module: ' .. selected, 3)
+                self.API:Notify('[API] Failed to load module: ' .. selected, 3)
             end
         end)
         :AddButton('unload', function()
             local selected = Options.ModuleManager_CustomThemeList.Value
             if not selected then
-                self.Library:Notify('No script selected to unload', 3)
+                self.API:Notify('No script selected to unload', 3)
                 return
             end
 
             if self:UnloadModule(selected, self.API) then
-                self.Library:Notify('[API] Unloaded module: ' .. selected)
+                self.API:Notify('[API] Unloaded module: ' .. selected)
             else
-                self.Library:Notify('[API] Failed to unload module: ' .. selected, 3)
+                self.API:Notify('[API] Failed to unload module: ' .. selected, 3)
             end
         end)
 
@@ -59,7 +59,7 @@ local ModuleManager = {} do
             local newList = self:GetModules()
             Options.ModuleManager_CustomThemeList:SetValues(newList)
             Options.ModuleManager_CustomThemeList:SetValue(nil)
-            self.Library:Notify('[API] Refreshed script list')
+            self.API:Notify('[API] Refreshed script list')
         end)
     end
 
@@ -153,22 +153,22 @@ local ModuleManager = {} do
     end
 
 	function ModuleManager:CreateGroupBox(tab)
-		assert(self.Library, 'Must set ModuleManager.Library first!')
+		assert(self.API, 'Must set ModuleManager.Library first!')
 		return tab:AddRightGroupbox('Scripts')
 	end
 
 	function ModuleManager:ApplyToTab(tab)
-		assert(self.Library, 'Must set ModuleManager.Library first!')
+		assert(self.API, 'Must set ModuleManager.Library first!')
 		local groupbox = self:CreateGroupBox(tab)
 		self:CreateModuleManager(groupbox)
 	end
 
 	function ModuleManager:SetLibrary(lib)
-		self.Library = lib
+        table.insert(self.API, lib)
 	end
 
 	function ModuleManager:SetAPI(api)
-		self.API = api
+        table.insert(self.API, api)
 	end
 
     function ModuleManager:GetLoadedModules()
