@@ -1,6 +1,6 @@
 local ModuleManager = {} do
     ModuleManager.Folder = 'Linora/Modules'
-    ModuleManager.API = nil
+    ModuleManager.API = {}
     ModuleManager.LoadedModules = {}
 
     function ModuleManager:BuildFolderTree()
